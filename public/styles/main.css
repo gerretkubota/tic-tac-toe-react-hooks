@@ -39,6 +39,16 @@
 .square {
   border: 1px solid #111;
 
+  font-size: 64px;
+
   width: 200px;
   height: 200px;
+}
+
+.square {
+  outline: none;
+}
+
+.square:focus {
+  outline: none;
 }

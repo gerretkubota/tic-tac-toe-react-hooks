@@ -5,7 +5,6 @@ const useBoardState = initialValue => {
 
   return {
     moves,
-    player: 'X',
     makeMove: (index, player) => {
       if (moves[index]) {
         return alert('Choose a different move!');
@@ -14,7 +13,7 @@ const useBoardState = initialValue => {
       console.log(`${index} has been clicked`);
 
       const newMoves = [...moves];
-      newMoves[index] = index;
+      newMoves[index] = player;
 
       setMoves(newMoves);
     },
