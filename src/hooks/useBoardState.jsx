@@ -3,8 +3,11 @@ import { useState } from 'react';
 const useBoardState = initialValue => {
   const [moves, setMoves] = useState(initialValue);
 
+  const [initialClick, setClick] = useState('');
+
   return {
     moves,
+    initialClick,
     makeMove: (index, player) => {
       if (moves[index]) {
         return alert('Choose a different move!');
@@ -16,6 +19,10 @@ const useBoardState = initialValue => {
       newMoves[index] = player;
 
       setMoves(newMoves);
+
+      if (!initialClick.length) {
+        setClick(player);
+      }
     },
     checkWinner: () => {
       console.log('checking winner');
@@ -37,10 +44,14 @@ const useBoardState = initialValue => {
         if (moves[a] && moves[a] === moves[b] && moves[a] === moves[c]) {
           alert(`The winner is ${moves[a]}`);
           setMoves(initialValue);
+          setClick('');
         }
       }
     },
-    reset: () => setMoves(initialValue),
+    reset: () => {
+      setMoves(initialValue);
+      setClick('');
+    },
   };
 };
 

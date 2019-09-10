@@ -2,13 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Square from './Square.jsx';
 
-// import useBoardState from '../hooks/useBoardState.jsx';
-// import usePlayerState from '../hooks/usePlayerState.jsx';
-// const { moves, makeMove, reset, checkWinner } = useBoardState(
-//   new Array(9).fill('')
-// );
-// const { player, nextPlayer } = usePlayerState('X');
-
 const Board = ({ moves, makeMove, player, nextPlayer }) => (
   <div className="board row">
     {moves.map((move, index) => (

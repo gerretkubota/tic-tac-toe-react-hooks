@@ -9,16 +9,23 @@ import usePlayerState from './hooks/usePlayerState.jsx';
 import '../public/styles/main.css';
 
 const App = () => {
-  const { moves, makeMove, reset, checkWinner } = useBoardState(
+  const { moves, makeMove, reset, checkWinner, initialClick } = useBoardState(
     new Array(9).fill('')
   );
 
   useEffect(() => {
-    console.log('hiiiiiii');
-    checkWinner();
-  }, [checkWinner, moves]);
+    if (initialClick.length) {
+      checkWinner();
+    }
+  }, [initialClick, checkWinner, moves]);
 
   const { player, nextPlayer } = usePlayerState('X');
+
+  useEffect(() => {
+    if (!initialClick.length) {
+      nextPlayer('X');
+    }
+  });
 
   return (
     <div className="app column column-center">
@@ -29,7 +36,12 @@ const App = () => {
         player={player}
         nextPlayer={nextPlayer}
       />
-      <Reset reset={reset} />
+      <Reset
+        onClick={() => {
+          nextPlayer('X');
+          reset();
+        }}
+      />
     </div>
   );
 };
