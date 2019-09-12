@@ -2,31 +2,28 @@ import { useState } from 'react';
 
 const useBoardState = initialValue => {
   const [moves, setMoves] = useState(initialValue);
-
-  const [initialClick, setClick] = useState('');
+  const [player, setPlayer] = useState('X');
+  const [winner, setWinner] = useState(false);
 
   return {
     moves,
-    initialClick,
-    makeMove: (index, player) => {
+    player,
+    winner,
+    makeMove: index => {
       if (moves[index]) {
         return alert('Choose a different move!');
       }
-
-      console.log(`${index} has been clicked`);
 
       const newMoves = [...moves];
       newMoves[index] = player;
 
       setMoves(newMoves);
-
-      if (!initialClick.length) {
-        setClick(player);
-      }
     },
-    checkWinner: () => {
-      console.log('checking winner');
-
+    nextPlayer: () => {
+      const next = player === 'X' ? 'O' : 'X';
+      setPlayer(next);
+    },
+    checkWinner: callback => {
       const possibilities = [
         [0, 1, 2],
         [3, 4, 5],
@@ -42,15 +39,26 @@ const useBoardState = initialValue => {
         const [a, b, c] = possibilities[i];
 
         if (moves[a] && moves[a] === moves[b] && moves[a] === moves[c]) {
-          alert(`The winner is ${moves[a]}`);
+          setWinner(true);
           setMoves(initialValue);
-          setClick('');
+          callback();
+          return;
         }
       }
     },
+    checkDraw: () => {
+      for (let i = 0; i < moves.length; i += 1) {
+        if (moves[i] === '') {
+          return false;
+        }
+      }
+
+      return true;
+    },
     reset: () => {
       setMoves(initialValue);
-      setClick('');
+      setPlayer('X');
+      setWinner(false);
     },
   };
 };

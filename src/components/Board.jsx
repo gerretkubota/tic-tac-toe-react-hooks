@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Square from './Square.jsx';
 
-const Board = ({ moves, makeMove, player, nextPlayer }) => (
+const Board = ({ moves, makeMove, nextPlayer }) => (
   <div className="board row">
     {moves.map((move, index) => (
       <Square
@@ -10,8 +10,8 @@ const Board = ({ moves, makeMove, player, nextPlayer }) => (
         move={move}
         index={index}
         onClick={() => {
-          makeMove(index, player);
-          nextPlayer(player === 'X' ? 'O' : 'X');
+          makeMove(index);
+          nextPlayer();
         }}
       />
     ))}
@@ -21,7 +21,6 @@ const Board = ({ moves, makeMove, player, nextPlayer }) => (
 Board.propTypes = {
   moves: PropTypes.array,
   makeMove: PropTypes.func,
-  player: PropTypes.string,
   nextPlayer: PropTypes.func,
 };
 
