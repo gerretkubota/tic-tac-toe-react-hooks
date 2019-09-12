@@ -15,6 +15,7 @@ const App = () => {
     player,
     reset,
     checkWinner,
+    checkDraw,
     nextPlayer,
     winner,
   } = useBoardState(new Array(9).fill(''));
@@ -23,10 +24,13 @@ const App = () => {
     if (winner) {
       alert(`The winner is ${player}!`);
       reset();
+    } else if (checkDraw()) {
+      alert("It's a draw!");
+      reset();
     } else {
       checkWinner(() => nextPlayer());
     }
-  }, [winner, moves, player, reset, checkWinner, nextPlayer]);
+  }, [winner, moves, player, reset, checkWinner, nextPlayer, checkDraw]);
 
   return (
     <div className="app column column-center">
